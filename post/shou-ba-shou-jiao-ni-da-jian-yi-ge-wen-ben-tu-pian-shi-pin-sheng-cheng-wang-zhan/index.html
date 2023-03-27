@@ -1,0 +1,315 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>手把手教你搭建一个文本图片视频生成网站 | 算法一只狗</title>
+<link rel="shortcut icon" href="https://llq20133100095.github.io/favicon.ico?v=1679905765695">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://llq20133100095.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="手把手教你搭建一个文本图片视频生成网站 | 算法一只狗 - Atom Feed" href="https://llq20133100095.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="在上一年，Stable Diffusion模型发布以来，“AI文本图片生成”真正的变成普通人也能使用的技术。
+但是最近一些网友利用网上的真人图片，不断喂给模型进行自主学习。其训练出来的效果已经可以做到以假乱真，你甚至不知道哪些图片是AI生成..." />
+    <meta name="keywords" content="Gridea" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://llq20133100095.github.io">
+  <img class="avatar" src="https://llq20133100095.github.io/images/avatar.png?v=1679905765695" alt="">
+  </a>
+  <h1 class="site-title">
+    算法一只狗
+  </h1>
+  <p class="site-description">
+    代码bug编写者/喜欢玩游戏/爱科学
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              手把手教你搭建一个文本图片视频生成网站
+            </h2>
+            <div class="post-info">
+              <span>
+                2023-03-27
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://llq20133100095.github.io/tag/ajLw4kP9t/" class="post-tag">
+                  # Gridea
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <p>在上一年，Stable Diffusion模型发布以来，“AI文本图片生成”真正的变成普通人也能使用的技术。</p>
+<p>但是最近一些网友利用网上的真人图片，不断喂给模型进行自主学习。其训练出来的效果已经可以做到以假乱真，你甚至不知道哪些图片是AI生成的还是真人拍出来的。<br>
+<img src="https://llq20133100095.github.io/post-images/1679904732153.png" alt="" loading="lazy"></p>
+<p>为了给广大读者造福利，这篇文章从零开始，教你如何搭建自己的真人AI网站。</p>
+<h1 id="1搭建你自己的ai网站">1.搭建你自己的AI网站</h1>
+<p>之前我写过一篇文章，在自己本地可以部署可玩的文本图像生成网站。这里我们也可以直接使用GitHub仓库：<strong>stable-diffusion-webui</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://llq20133100095.github.io/post-images/1679905232332.png" alt="" loading="lazy"></figure>
+<ol>
+<li><strong>在电脑上安装python 3.10.6，如果已经安装了其他python版本，可以利用conda安装多一个3.10的虚拟环境版本：</strong></li>
+</ol>
+<pre><code class="language-shell">conda create -n novelai python==3.10.6 
+</code></pre>
+<ol start="2">
+<li><strong>下载该仓库的代码：</strong></li>
+</ol>
+<pre><code class="language-shell">git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
+</code></pre>
+<ol start="3">
+<li><strong>安装对应的GPU版本的Pytorch，直接进入网站：</strong><a href="https://pytorch.org/get-started/locally/"><strong>https://pytorch.org/get-started/locally/</strong></a><strong>，复制对应的命令</strong></li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://llq20133100095.github.io/post-images/1679905242513.png" alt="" loading="lazy"></figure>
+<p>进入刚刚创建的虚拟环境”novelai“：</p>
+<figure data-type="image" tabindex="3"><img src="https://llq20133100095.github.io/post-images/1679905250002.png" alt="" loading="lazy"></figure>
+<p>执行刚刚的命令：</p>
+<pre><code class="language-shell">./python -m pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+</code></pre>
+<ol>
+<li><strong>安装成功后，可以测试自己的pytorch版本是否可以跑通</strong></li>
+</ol>
+<figure data-type="image" tabindex="4"><img src="https://llq20133100095.github.io/post-images/1679905267265.png" alt="" loading="lazy"></figure>
+<ol start="2">
+<li><strong>进入刚刚下载的Github仓库的代码文件夹，安装第三方依赖：</strong></li>
+</ol>
+<pre><code class="language-shell">python -m pip install -r requirements.txt
+</code></pre>
+<h1 id="2模型下载">2.模型下载</h1>
+<p>有了网站之后，就需要下载对应的AI模型进行有效生成。</p>
+<p>一些网友已经利用网上大量的图片训练好的模型，并分享到网站上</p>
+<blockquote>
+<p><strong>https://civitai.com/</strong></p>
+</blockquote>
+<p>这个大名鼎鼎的网站被人们称为”C站“，里面有很多你意想不到的模型</p>
+<figure data-type="image" tabindex="5"><img src="https://llq20133100095.github.io/post-images/1679905283903.png" alt="" loading="lazy"></figure>
+<p>我们可以在这个网站上找到很多已经训练好的模型。比如找一个生成真人图片的模型：ChilloutMix<br>
+<img src="https://llq20133100095.github.io/post-images/1679905291985.png" alt="" loading="lazy"></p>
+<p>从网页上下载对应的模型后，把该模型放到工程目录：models/Stable-diffusion</p>
+<figure data-type="image" tabindex="6"><img src="https://llq20133100095.github.io/post-images/1679905301756.png" alt="" loading="lazy"></figure>
+<h1 id="3汉化插件下载">3.汉化插件下载</h1>
+<p>stable-diffusion-webui这个项目还支持下载第三方插件。比如我们可以下载对应的汉化插件。<br>
+其下载地址如下：</p>
+<blockquote>
+<p><strong>https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN</strong></p>
+</blockquote>
+<p>登陆上面网站后，我们就可以下载插件的安装包：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905336017.png" alt="8" loading="lazy"></p>
+<p>然后将文件解压放到 extensions 目录下：</p>
+<figure data-type="image" tabindex="7"><img src="https://llq20133100095.github.io/post-images/1679905345193.png" alt="" loading="lazy"></figure>
+<p>接着，就需要对网页进行重启服务：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905352082.png" alt="10" loading="lazy"></p>
+<p>在扩展这里，把插件勾上：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905363003.png" alt="" loading="lazy"></p>
+<p>在“设置”选项里，找到zh_CN，最后需要重新启动网页，就可以生效了：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905401198.png" alt="" loading="lazy"><br>
+<img src="https://llq20133100095.github.io/post-images/1679905461051.png" alt="" loading="lazy"></p>
+<h1 id="4生成你的真人图片">4.生成你的真人图片</h1>
+<p>启动主程序&quot;launch.py&quot;，等待一定的时间出现网页地址就可以了</p>
+<figure data-type="image" tabindex="8"><img src="https://llq20133100095.github.io/post-images/1679905471560.png" alt="" loading="lazy"></figure>
+<p>打开网址后，有时候可能模型没有更新上去，因此可以尝试一下多次重启。</p>
+<p>需要选择刚刚下载的模型：ChilloutMix<br>
+<img src="https://llq20133100095.github.io/post-images/1679905507022.png" alt="14" loading="lazy"></p>
+<p>这样我们就已经完成前期的部署工作了。接下来详细教大家怎么生成自己想要的图片。</p>
+<h2 id="41-生成真人图片">4.1 生成真人图片</h2>
+<p>在c站上，已经有很多大神利用promt生成图片了，因此我们就可以对这些进行参考。</p>
+<p>比如找一个好看的图片，对下面的Prompt词语进行复制：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905520029.png" alt="" loading="lazy"></p>
+<p>其中Prompt词语放在提示词框内，消极Prompt词语放在对应的方框内。同时调整对应的参数，最后就可以生成真人图片：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905527053.png" alt="" loading="lazy"></p>
+<h2 id="42-不同风格图片生成">4.2 不同风格图片生成</h2>
+<p>在C站上，还有很多Lora模型可以进行下载，这是一种可以帮助你调整画风的小模型。主要是放到Prompt中进行使用。<br>
+比如我们可以在网站上下载原神的Lora模型：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905537963.png" alt="" loading="lazy"></p>
+<p>下载完成后，把模型放到models/Lora路径下：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905544796.png" alt="" loading="lazy"></p>
+<p>按照图片下的步骤，选中模型后，会看到具体的Prompt在方框内了：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905551928.png" alt="" loading="lazy"></p>
+<p>把步骤<strong>4.1中的Prompt词语</strong>加入到这里，就可以生成一个原神风格的图片：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905559262.png" alt="" loading="lazy"></p>
+<h2 id="43-动画视频生成">4.3 动画视频生成</h2>
+<p>首先需要安装插件**“deforum”**，这个插件能够根据多个生成的图片构造成视频动画。</p>
+<blockquote>
+<p><a href="https://github.com/deforum-art/deforum-for-automatic1111-webui">https://github.com/deforum-art/deforum-for-automatic1111-webui</a></p>
+</blockquote>
+<p>在当前stable-diffusion目录下，执行下面命令</p>
+<pre><code class="language-shell">git clone https://github.com/deforum-art/deforum-for-automatic1111-webui extensions/deforum
+</code></pre>
+<p>就会发现extensions多了新的插件：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905568930.png" alt="" loading="lazy"></p>
+<p>同时重启新的网页，发现会多了deforum这个选项：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905574625.png" alt="" loading="lazy"></p>
+<p>我们可以先执行简单的生成，在提示词上，已经默认填写了语句：</p>
+<pre><code class="language-shell">{
+    &quot;0&quot;: &quot;tiny cute swamp bunny, highly detailed, intricate, ultra hd, sharp photo, crepuscular rays, in focus, by tomasz alen kopera&quot;,
+    &quot;30&quot;: &quot;anthropomorphic clean cat, surrounded by fractals, epic angle and pose, symmetrical, 3d, depth of field, ruan jia and fenghua zhong&quot;,
+    &quot;60&quot;: &quot;a beautiful coconut --neg photo, realistic&quot;,
+    &quot;90&quot;: &quot;a beautiful durian, trending on Artstation&quot;
+}
+</code></pre>
+<p>最后生成出来的视频如下：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905583556.gif" alt="" loading="lazy"></p>
+<p>Prompt词语模板解释如下：</p>
+<pre><code class="language-shell">//Abstracted Example
+{
+    &quot;0&quot;: &quot;Prompt A --neg NegPompt&quot;
+    &quot;12&quot;: &quot;Prompt B&quot; 
+}
+</code></pre>
+<p>其中“0”和“12”提示在插值中解析的关键帧。<br>
+Prompt A 和 B 是肯定提示，NegPrompt 是否定提示。</p>
+<p>当然，我们也可以直接用上面C站下载下来的模型，生成真人动画。<br>
+<img src="https://llq20133100095.github.io/post-images/1679905590634.gif" alt="" loading="lazy"></p>
+<h1 id="5让你生成的图片开口说话">5.让你生成的图片开口说话</h1>
+<p>从上面我们已经得到了生成的图片</p>
+<p>那么我们就可以利用这张图片，创建自己的AI说话视频</p>
+<p>登陆这个网址：</p>
+<blockquote>
+<p><a href="https://studio.d-id.com/">https://studio.d-id.com/</a></p>
+</blockquote>
+<figure data-type="image" tabindex="9"><img src="https://llq20133100095.github.io/post-images/1679905596805.png" alt="" loading="lazy"></figure>
+<p>选择刚刚生成的图片，然后输入自己想要说的话，之后生成就可以了：<br>
+<img src="https://llq20133100095.github.io/post-images/1679905602632.png" alt="" loading="lazy"></p>
+<p>最后就可以得到比较逼真的真人AI说话视频了。<br>
+<img src="https://llq20133100095.github.io/post-images/1679905608121.gif" alt="" loading="lazy"></p>
+<p>有了这个技术，就可以批量制作二次元甚至是真人说话视频。这对于AICG这个行业是一个颠覆性的技术，相信未来这个技术在多个领域上都能够推广开来。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#1%E6%90%AD%E5%BB%BA%E4%BD%A0%E8%87%AA%E5%B7%B1%E7%9A%84ai%E7%BD%91%E7%AB%99">1.搭建你自己的AI网站</a></li>
+<li><a href="#2%E6%A8%A1%E5%9E%8B%E4%B8%8B%E8%BD%BD">2.模型下载</a></li>
+<li><a href="#3%E6%B1%89%E5%8C%96%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD">3.汉化插件下载</a></li>
+<li><a href="#4%E7%94%9F%E6%88%90%E4%BD%A0%E7%9A%84%E7%9C%9F%E4%BA%BA%E5%9B%BE%E7%89%87">4.生成你的真人图片</a>
+<ul>
+<li><a href="#41-%E7%94%9F%E6%88%90%E7%9C%9F%E4%BA%BA%E5%9B%BE%E7%89%87">4.1 生成真人图片</a></li>
+<li><a href="#42-%E4%B8%8D%E5%90%8C%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E7%94%9F%E6%88%90">4.2 不同风格图片生成</a></li>
+<li><a href="#43-%E5%8A%A8%E7%94%BB%E8%A7%86%E9%A2%91%E7%94%9F%E6%88%90">4.3 动画视频生成</a></li>
+</ul>
+</li>
+<li><a href="#5%E8%AE%A9%E4%BD%A0%E7%94%9F%E6%88%90%E7%9A%84%E5%9B%BE%E7%89%87%E5%BC%80%E5%8F%A3%E8%AF%B4%E8%AF%9D">5.让你生成的图片开口说话</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://llq20133100095.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://llq20133100095.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
